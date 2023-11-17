@@ -1,8 +1,12 @@
+QT += core gui quick widgets
+QT += location
+QT += charts
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 CONFIG += c++11
+
+
 
 QT += sql
 
@@ -20,17 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    activitydialog.cpp \
     connect.cpp \
     main.cpp \
     mainwindow.cpp \
     pointdecollect.cpp
 
 HEADERS += \
+    activitydialog.h \
     connect.h \
     mainwindow.h \
     pointdecollect.h
 
 FORMS += \
+    activitydialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -39,7 +46,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    logo.qrc
+    logo.qrc \
+    qml.qrc
+
 
 DISTFILES += \
     D:/Users/HP/Downloads/379629718_1462667831247521_2760304968014038212_n.png \

@@ -1,5 +1,5 @@
 #include "pointdecollect.h"
-#include "add_pc.h"
+
 #include "ui_mainwindow.h"
 #include "connect.h"
 
@@ -94,7 +94,6 @@ bool PointDeCollect::modifier()
     query.bindValue(":lieu", lieu);
     query.bindValue(":quntiter", qt_string);
 
-
     if(query.exec())
        {
            if(query.numRowsAffected() > 0)
@@ -112,7 +111,28 @@ QSqlQueryModel* PointDeCollect::tier_lieu()
         model->setQuery("SELECT ID_PC,LIEU,DAT_PC,QUNTITER FROM points_de_collectes ORDER BY LIEU ASC");
         return model;
 }
+QMap<QString, int> PointDeCollect::getquntiterStatistics()
+{
+    QMap<QString, int> statistics;
+    QSqlQuery query;
 
+    query.prepare("SELECT COUNT(*) AS count FROM points_de_collectes WHERE QUNTITER < 80");
+    if (query.exec() && query.next()) {
+        statistics["Moins de 80 QUNTITER"] = query.value("count").toInt();
+    }
+
+    query.prepare("SELECT COUNT(*) AS count FROM points_de_collectes WHERE QUNTITER >= 80 AND QUNTITER <= 100");
+    if (query.exec() && query.next()) {
+        statistics["80-100 QUNTITER"] = query.value("count").toInt();
+    }
+
+    query.prepare("SELECT COUNT(*) AS count FROM points_de_collectes WHERE QUNTITER > 100");
+    if (query.exec() && query.next()) {
+        statistics["Plus de 100 QUNTITER"] = query.value("count").toInt();
+    }
+
+    return statistics;
+}
 
 
 

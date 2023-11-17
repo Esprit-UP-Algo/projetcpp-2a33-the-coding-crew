@@ -1,8 +1,8 @@
-
+#include "connect.h"
 #include "mainwindow.h"
 #include <QApplication>
 #include <QMessageBox>
-#include "connect.h"
+#include <QQmlApplicationEngine>
 #include<QDebug>
 int main(int argc, char *argv[])
 {
@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
                     QObject::tr("connection failed.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:/Maps.qml")));
 
 
     return a.exec();

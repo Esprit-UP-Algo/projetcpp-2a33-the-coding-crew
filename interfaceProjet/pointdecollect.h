@@ -32,6 +32,8 @@ public:
     QSqlQueryModel* afficherID();
     QSqlQueryModel* tier_lieu();
 
+    QMap<QString, int> getquntiterStatistics();
+
 
     ~PointDeCollect(){};
 };

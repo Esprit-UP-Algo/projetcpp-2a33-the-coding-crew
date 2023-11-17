@@ -1,36 +1,71 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mainwindow.h"
 #include "pointdecollect.h"
-#include "add_pc.h"
-#include "modifier_pc.h"
 #include "connect.h"
+
+#include <QtCharts/QChart>
 #include <QPixmap>
 #include <QMessageBox>
-#include <QSqlQueryModel>
-#include <QSqlQuery>
 #include <QComboBox>
-#include<QStringList>
-#include <QRegExp>
 #include <QFileDialog>
-#include <QPdfWriter>
 #include <QPainter>
 #include <QTextStream>
 #include <QTextDocument>
-#include <QSortFilterProxyModel>
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
 
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts>
+#include <QPieSlice>
+
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQuickWidget>
+#include <QUrl>
+#include <QQmlContext>
+
+#include <QtWidgets/QWidget>
+#include <QtCharts/QChart>
+#include <QQuickItem>
+
+#include <QFile>
+#include "activitydialog.h"
+#include <QToolButton>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QDebug>
+#include <QIcon>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow)
+{
     ui->setupUi(this);
+    quntiteStatisticsChartView = nullptr;
     QPixmap pix("C:/Users/HP/OneDrive/Bureau/img/LOGO");
-    ui->label_pic->setPixmap(pix.scaled(150,150,Qt::KeepAspectRatio));
-    PointDeCollect p1;
+
+    ui->label_pic->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
+    ui->lineEdit_quntite->setValidator(new QIntValidator(0, 99999, this));
+    ui->lineEdit_quntite_2->setValidator(new QIntValidator(0, 99999, this));
+    ui->lineEdit_idpc_2->setValidator(new QIntValidator(0, 999999999, this));
+
+    PointDeCollect p;
     ui->comboBox_ID->setModel(p.afficher());
     ui->tableView_ID->setModel(p.afficherID());
     ui->tab_PC->setModel(p.afficher());
 
+    ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
+    ui->quickWidget->show();
+
+    auto obj = ui->quickWidget->rootObject();
+    connect(this, SIGNAL(setCenter(QVariant, QVariant)), obj, SLOT(setCenter(QVariant, QVariant)));
+    connect(this, SIGNAL(addMarker(QVariant, QVariant)), obj, SLOT(addMarker(QVariant, QVariant)));
+
+
+    emit setCenter(36.83,10.21);
+    emit addMarker(36.83,10.20);
+    emit addMarker(36.82,10.21);
+    emit addMarker(36.81,10.20);
+    emit addMarker(36.898,10.190);
 
 
 
@@ -43,15 +78,18 @@ MainWindow::~MainWindow()
 
 
 
+
 void MainWindow::on_B_ajouter_clicked()
 {
-    int id=ui->lineEdit_idpc->text().toInt();
-    QDate date= ui->dateEdit->date();
-    QString lieu = ui->lineEdit_lieu->text();
-    int quntte=ui->lineEdit_quntite->text().toInt();
+    int id=ui->lineEdit_idpc_2->text().toInt();
+    QDate date= ui->dateEdit_2->date();
+    QString lieu = ui->lineEdit_lieu_2->text();
+    int quntte=ui->lineEdit_quntite_2->text().toInt();
     PointDeCollect p(id,date,lieu,quntte);
     bool test=p.ajouter();
     if (test) {
+        ui->tableView_ID->setModel(p.afficherID());
+        ui->tab_PC->setModel(p.afficher());
         QMessageBox::information(nullptr, QObject::tr("Success"), QObject::tr("Add operation completed.\nClick Cancel to exit"),QMessageBox::Cancel);
 
     } else {
@@ -68,7 +106,11 @@ void MainWindow::on_B_supp_clicked()
     bool test= p.supprime(ui->lineEdit_idpc->text().toInt());
     QMessageBox msgBox;
     if (test)
+    {
+        ui->tableView_ID->setModel(p.afficherID());
+        ui->tab_PC->setModel(p.afficher());
         msgBox.setText("suppreme avec succe");
+    }
      else
         msgBox.setText("no suppreme ");
     msgBox.exec();
@@ -83,20 +125,16 @@ void MainWindow::on_B_modifier_clicked()
     int quntite=ui->lineEdit_quntite->text().toInt();
     PointDeCollect p(id,date,lieu,quntite);
     bool test=p.modifier();
-
-    if (test)
-    msgBox.setText("modifier avec succe");
-    else
-        msgBox.setText("no modifier XD  ");
-    msgBox.exec();
 }
 
 void MainWindow::on_pushButton_8_clicked()
 {
     ui->tab_PC->setModel(p.afficher());
     ui->tableView_ID->setModel(p.afficherID());
-    ui->comboBox_ID->setModel(p.afficherID());\
+    ui->comboBox_ID->setModel(p.afficherID());
     ui->tab_PC->setModel(p.tier_lieu());
+    ui->quickWidget->setSource(QUrl("qrc:/Maps.qml"));
+
 }
 
 void MainWindow::on_comboBox_ID_currentIndexChanged(const QString &arg1)
@@ -129,7 +167,7 @@ void MainWindow::on_comboBox_ID_currentIndexChanged(const QString &arg1)
 void MainWindow::on_lineEdit_RE_textChanged(const QString &arg1)
 {
     QSqlQueryModel *model = new QSqlQueryModel();
-    model->setQuery("SELECT ID_PC,LIEU,DAT_PC,QUNTITER FROM points_de_collectes WHERE ID_PC LIKE '%" + arg1 + "%' ");
+    model->setQuery("SELECT ID_PC FROM points_de_collectes WHERE ID_PC LIKE '%" + arg1 + "%' ");
     ui->tableView_ID->setModel(model);
 }
 
@@ -142,7 +180,8 @@ void MainWindow::on_b_trier_clicked()
 void MainWindow::on_lineEdit__textChanged(const QString &arg1)
 {
     QSqlQueryModel *model = new QSqlQueryModel();
-    model->setQuery("SELECT ID_PC,LIEU,DAT_PC,QUNTITER FROM points_de_collectes WHERE ID_PC LIKE '%" + arg1 + "%' OR LIEU LIKE '%" + arg1 + "%' OR DAT_PC LIKE '%" + arg1 + "%' OR QUNTITER LIKE '%" + arg1 + "%'");
+    model->setQuery("SELECT ID_PC,LIEU,DAT_PC,QUNTITER FROM points_de_collectes WHERE  LIEU LIKE '%" + arg1 + "%'");
+    //model->setQuery("SELECT ID_PC,LIEU,DAT_PC,QUNTITER FROM points_de_collectes WHERE ID_PC LIKE '%" + arg1 + "%' OR LIEU LIKE '%" + arg1 + "%' OR DAT_PC LIKE '%" + arg1 + "%' OR QUNTITER LIKE '%" + arg1 + "%'");
     ui->tab_PC->setModel(model);
 
 }
@@ -234,4 +273,309 @@ void MainWindow::on_tableView_ID_activated(const QModelIndex &index)
 
 
 
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+
+}
+
+void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    // Récupérer l'index de l'onglet "Statistiques" sous l'onglet "CRUD"
+    int statisticsTabIndex = ui->tabWidget->indexOf(ui->stat);  // Remplacez "statistiquesTab" par le nom réel de votre onglet "Statistiques"
+
+    // Vérifier si l'onglet "Statistiques" a été cliqué
+    if (index == statisticsTabIndex) {
+        // Mettre à jour les statistiques ici
+        updatequntiterStatisticsChart();
+    } else {
+        // Si l'onglet actif n'est pas "Statistiques", supprimer le graphique s'il existe
+        clearquntiterStatisticsChart();
+    }
+}
+void MainWindow::updatequntiterStatisticsChart()
+{
+    // Récupérer les statistiques réelles
+    QMap<QString, int> statistics = p.getquntiterStatistics();
+    int totalQuntite = 0;
+
+    // Calculer le nombre total d'employés
+    for (const QString &quntiteGroup : statistics.keys()) {
+        totalQuntite += statistics[quntiteGroup];
+    }
+
+    // Créer une série pour le graphique circulaire
+    QPieSeries *series = new QPieSeries();
+
+    // Définir différentes nuances de vert pour chaque tranche
+    QStringList greenColors = {"#55AA00", "#458C68", "#005500"};
+
+    int colorIndex = 0;
+
+    // Ajouter des tranches au graphique circulaire pour chaque groupe d'âge
+    for (const QString &quntiteGroup : statistics.keys()) {
+        int count = statistics[quntiteGroup];
+        QPieSlice *slice = series->append(quntiteGroup, count);
+
+        // Afficher le pourcentage sur chaque tranche
+        slice->setLabel(quntiteGroup + ": " + QString::number(static_cast<double>(count) / totalQuntite * 100, 'f', 2) + "%");
+
+        // Définir la couleur des tranches
+        if (colorIndex < greenColors.size()) {
+            slice->setBrush(QColor(greenColors[colorIndex]));
+        } else {
+            slice->setBrush(QColor(Qt::green));  // Utiliser une couleur par défaut si vous avez épuisé les nuances de vert
+        }
+
+        // Passer à la prochaine nuance de vert
+        colorIndex++;
+    }
+
+    // Supprimer le graphique précédent s'il existe
+    clearquntiterStatisticsChart();
+
+    // Créer un graphique circulaire et le configurer
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Répartition par groupe d'âge");
+
+    // Définir le fond du graphique comme beige
+    chart->setBackgroundBrush(QBrush(QColor("#F5F5DC")));  // Couleur beige
+
+    // Créer une vue de graphique et l'ajouter à votre interface utilisateur
+    quntiteStatisticsChartView = new QChartView(chart);
+    quntiteStatisticsChartView->setRenderHint(QPainter::Antialiasing);
+    quntiteStatisticsChartView->setParent(ui->stat);
+
+    // Ajuster la taille du graphique (par exemple, 600x400 pixels)
+    quntiteStatisticsChartView->setGeometry(70, 50, 600, 400);
+
+    // Afficher le graphique
+    quntiteStatisticsChartView->show();
+}
+
+void MainWindow::clearquntiterStatisticsChart()
+{
+    if (quntiteStatisticsChartView)
+    {
+        delete quntiteStatisticsChartView;
+        quntiteStatisticsChartView = nullptr;
+    }
+}
+
+void MainWindow::load(){
+    QFile file(log);
+    if(file.open(QIODevice::ReadOnly)){
+        QTextStream in(&file);
+        while(!in.atEnd()){
+            QStringList dati;
+            QString riga = in.readLine();
+            if(riga.length()>0){
+                dati = riga.split('\t');
+                activities.push_back(attivita(dati));
+            }
+        }
+    }
+    file.close();
+}
+
+void MainWindow::showActivities(){
+    QStringList headers = {"Tipo Attività", "Titolo", "Ora Inizio", "Ora Fine", "Ripeti", "Azioni"};
+    QDate data = ui->calendarWidget->selectedDate();
+    std::vector<int> pos;
+    for(unsigned int i=0; i<activities.size(); i++){
+        if(activities.at(i).finish.date() >= data){
+            QString rep = activities.at(i).repeats;
+            int r = -1;
+            if(rep == "Mai")
+                r = 0;
+            if(rep == "Ogni giorno")
+                r = 1;
+            if(rep == "Ogni mese")
+                r = 2;
+            if(rep == "Ogni anno")
+                r = 3;
+            if(rep == "Ogni settimana")
+                r = 4;
+            switch(r){
+            case 0:
+                if(activities.at(i).data==data){
+                    pos.push_back(i);
+                }
+                break;
+            case 1:
+                if(activities.at(i).data <= data){
+                    pos.push_back(i);
+                }
+                break;
+            case 2:
+                if(activities.at(i).data.day()==data.day() && activities.at(i).data <= data){
+                    pos.push_back(i);
+                }
+                break;
+            case 3:
+                if(activities.at(i).data.day()==data.day() && activities.at(i).data.month()==data.month() && activities.at(i).data <= data){
+                    pos.push_back(i);
+                }
+                break;
+            case 4:
+                if(activities.at(i).data.dayOfWeek() == data.dayOfWeek() && activities.at(i).data <= data){
+                    pos.push_back(i);
+                }
+                break;
+            default: break;
+            }
+        }
+    }
+    ui->Attivita->setColumnCount(6);
+    ui->Attivita->setColumnWidth(0, 130);
+    ui->Attivita->setColumnWidth(1, 250);
+    ui->Attivita->setColumnWidth(2, 75);
+    ui->Attivita->setColumnWidth(3, 75);
+    ui->Attivita->setColumnWidth(4, 120);
+    ui->Attivita->setColumnWidth(5, 80);
+    ui->Attivita->setRowCount(pos.size());
+    ui->Attivita->setFont(QFont ("Times", 10, QFont::Bold));
+    //ui->Attivita->setHorizontalHeaderLabels(headers.last(6));
+    ui->Attivita->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->Attivita->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->Attivita->setStyleSheet("QTableWidget::item { padding: 0px }");
+    ui->Attivita->setSortingEnabled(false);
+    for(unsigned int i=0; i<pos.size(); i++){
+        ui->Attivita->setRowHeight(i, 40);
+        QStringList ActInfo = activities.at(pos.at(i)).getInfo();
+        for(int j=0; j<5; j++){
+            QTableWidgetItem *el = new QTableWidgetItem();
+            el->setData(Qt::EditRole, ActInfo.at(j));
+            ui->Attivita->setItem(i, j, el);
+            ui->Attivita->item(i, j)->setFlags((ui->Attivita->item(i,j)->flags() ^ Qt::ItemIsEditable));
+        }
+        QToolButton *del = new QToolButton(this);
+        QToolButton *edit = new QToolButton(this);
+        del->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        edit->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        del->setIcon(QIcon::fromTheme("list-add", QIcon("delete.png")));
+        edit->setIcon(QIcon::fromTheme("list-add", QIcon("edit.png")));
+        del->setText(QString::number(pos.at(i)));
+        edit->setText(QString::number(pos.at(i)));
+        QGroupBox *box = new QGroupBox();
+        QHBoxLayout *layout = new QHBoxLayout;
+        layout->addWidget(del);
+        layout->addWidget(edit);
+        box->setLayout(layout);
+        connect(del, &QToolButton::clicked , this, &MainWindow::removeActivity);
+        connect(edit, &QToolButton::clicked , this, &MainWindow::editActivity);
+        ui->Attivita->setCellWidget(i, 5, box);
+    }
+    ui->Attivita->setSortingEnabled(true);
+    ui->Attivita->sortByColumn(2, Qt::AscendingOrder);
+}
+
+
+
+void MainWindow::on_AddActivity_clicked()
+{
+    QDate selectedDate = ui->calendarWidget->selectedDate();
+    activitydialog *act = new activitydialog(this, selectedDate, &activities);
+    if(act->exec()){
+        showActivities();
+    }
+}
+void MainWindow::addActivity(attivita a){
+    activities.push_back(a);
+}
+void MainWindow::removeActivity(){
+    QToolButton *sender = qobject_cast<QToolButton*>(QObject::sender());
+    int pos = std::stoi(sender->text().toStdString());
+    activities.erase(activities.begin()+pos);
+    QFile file(log);
+    int i=0;
+    QStringList testo;
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QTextStream in(&file);
+        while(!in.atEnd()){
+            QString riga = in.readLine();
+            if(i != pos){
+                testo.append(riga);
+            }
+            i++;
+        }
+    }
+    file.close();
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream in(&file);
+        for(int i=0; i<testo.size(); i++){
+            in << testo.at(i) << '\n';
+        }
+    }
+    file.close();
+    showActivities();
+}
+
+void MainWindow::editActivity(){
+    QToolButton *sender = qobject_cast<QToolButton*>(QObject::sender());
+    int pos = std::stoi(sender->text().toStdString());
+    QFile file(log);
+    int i=0;
+    QStringList testo;
+    int result = -1;
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QTextStream in(&file);
+        while(!in.atEnd()){
+            QString riga = in.readLine();
+            if(i != pos){
+                testo.append(riga);
+            }else{
+                QDate selectedDate = activities.at(i).getData();
+                activitydialog *act = new activitydialog(this, selectedDate, &activities, true, pos);
+                result = act->exec();
+                if(result == QDialog::Accepted){
+                    activities.at(pos) = act->edited_activity;
+                    int y = selectedDate.year();
+                    int m = selectedDate.month();
+                    int d = selectedDate.day();
+                    QString dt = QString::number(y)+":"+QString::number(m)+":"+QString::number(d);
+                    QStringList info = act->edited_activity.getInfo();
+                    QString fin = info.at(5);;
+                    if(info.at(3).length() == 0)
+                        fin += " 23:59:59";
+                    else
+                        fin += " " + info.at(3);
+                    testo.append(info.at(0)+'\t'+info.at(1)+'\t'+info.at(2)+'\t'+fin+'\t'+info.at(4)+'\t'+dt);
+                    riga = "";
+                }
+            }
+            i++;
+        }
+    }
+    file.close();
+    if(result == QDialog::Accepted){
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
+            QTextStream in(&file);
+            for(int i=0; i<testo.size(); i++){
+                in << testo.at(i) << '\n';
+            }
+        }
+        file.close();
+    }
+    showActivities();
+}
+
+
+
+void MainWindow::on_calendarWidget_selectionChanged()
+{
+    showActivities();
+}
+
+void MainWindow::on_calendarWidget_activated(const QDate &date)
+{
+    showActivities();
+}
+
+void MainWindow::on_calendarWidget_clicked(const QDate &date)
+{
+    showActivities();
 }
