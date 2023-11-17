@@ -4,7 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-
+//DESTDIR = ../bin
 class Connection
 {
 public:
