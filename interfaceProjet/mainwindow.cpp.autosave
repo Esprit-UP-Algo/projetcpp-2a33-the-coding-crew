@@ -27,7 +27,6 @@
 #include <QtCharts/QChart>
 #include <QQuickItem>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow)
@@ -38,8 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->label_pic->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
     ui->lineEdit_quntite->setValidator(new QIntValidator(0, 99999, this));
-    ui->lineEdit_quntite_2->setValidator(new QIntValidator(0, 99999, this));
-    ui->lineEdit_idpc_2->setValidator(new QIntValidator(0, 999999999, this));
 
     PointDeCollect p;
     //ui->comboBox_ID->setModel(p.afficher());

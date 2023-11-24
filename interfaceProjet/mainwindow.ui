@@ -155,8 +155,8 @@ background-color: rgb(50, 157, 156);</string>
       <widget class="QTabWidget" name="tabWidget">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>60</y>
+         <x>230</x>
+         <y>40</y>
          <width>941</width>
          <height>631</height>
         </rect>
@@ -201,7 +201,7 @@ QTabBar:tab:hover
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>0</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -447,27 +447,11 @@ QTabBar:tab:hover
            </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
+           <layout class="QGridLayout" name="gridLayout_3" columnstretch="0">
             <property name="verticalSpacing">
              <number>13</number>
             </property>
-            <item row="1" column="0" colspan="2">
-             <widget class="QComboBox" name="comboBox_ID">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="toolTipDuration">
-               <number>3</number>
-              </property>
-              <property name="editable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLineEdit" name="lineEdit_RE"/>
-            </item>
-            <item row="2" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="label">
               <property name="styleSheet">
                <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
@@ -477,7 +461,10 @@ QTabBar:tab:hover
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="3" column="0">
+             <widget class="QLineEdit" name="lineEdit_RE"/>
+            </item>
+            <item row="4" column="0">
              <widget class="QTableView" name="tableView_ID"/>
             </item>
            </layout>
@@ -513,13 +500,26 @@ QTabBar:tab:hover
              </spacer>
             </item>
             <item row="1" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
+             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0,0">
               <property name="spacing">
                <number>12</number>
               </property>
               <property name="sizeConstraint">
                <enum>QLayout::SetMinimumSize</enum>
               </property>
+              <item>
+               <widget class="QPushButton" name="B_ajouter">
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>ajouter</string>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="pushButton_8">
                 <property name="enabled">
@@ -568,59 +568,6 @@ QTabBar:tab:hover
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,4,2,2">
-              <item>
-               <widget class="QLineEdit" name="lineEdit_idpc_2">
-                <property name="inputMethodHints">
-                 <set>Qt::ImhNone</set>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="maxLength">
-                 <number>8</number>
-                </property>
-                <property name="placeholderText">
-                 <string>ID</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_lieu_2">
-                <property name="placeholderText">
-                 <string>LIEU</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QDateEdit" name="dateEdit_2">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="statusTip">
-                 <string/>
-                </property>
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="keyboardTracking">
-                 <bool>true</bool>
-                </property>
-                <property name="calendarPopup">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_quntite_2">
-                <property name="placeholderText">
-                 <string>QUNTITER</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
              <widget class="QTableView" name="tab_PC">
               <property name="styleSheet">
                <string notr="true">recharche </string>
@@ -651,19 +598,6 @@ QTabBar:tab:hover
             </property>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QPushButton" name="B_ajouter">
-                <property name="sizeIncrement">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>ajouter</string>
-                </property>
-               </widget>
-              </item>
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="styleSheet">
