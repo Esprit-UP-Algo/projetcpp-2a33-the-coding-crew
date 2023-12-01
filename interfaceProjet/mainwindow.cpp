@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "pointdecollect.h"
+#include "activitydialog.h"
 #include "connect.h"
 
 #include <QtCharts/QChart>
@@ -27,7 +28,6 @@
 #include <QtCharts/QChart>
 #include <QQuickItem>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow)
@@ -38,8 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->label_pic->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
     ui->lineEdit_quntite->setValidator(new QIntValidator(0, 99999, this));
-    ui->lineEdit_quntite_2->setValidator(new QIntValidator(0, 99999, this));
-    ui->lineEdit_idpc_2->setValidator(new QIntValidator(0, 999999999, this));
 
     PointDeCollect p;
     //ui->comboBox_ID->setModel(p.afficher());
@@ -60,6 +58,17 @@ MainWindow::MainWindow(QWidget *parent)
     emit addMarker(36.81,10.20);
     emit addMarker(36.898,10.190);
 
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+       break;
+    case(-1):qDebug() << "arduino is not available";
+    }
+     //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+     //le slot update_label suite à la reception du signal readyRead (reception des données).
+
 
 
 }
@@ -69,7 +78,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::update_label()
+{
+    data=A.read_from_arduino();
+    qDebug() << "-------------------" <<data;
+    ui->label_3->setText(data);
 
+    QString id = "44541545";
+
+        QSqlQuery query;
+        query.prepare("SELECT * FROM matiere_recyclee WHERE ID_MR = :id");
+        query.bindValue(":id", id);
+        query.exec();
+
+        if (query.next()) {
+            QString type_prod = query.value(1).toString().trimmed();
+            float prix = query.value(2).toFloat();
+            QDate date_entree = query.value(3).toDate();
+            int quantites = query.value(4).toInt();
+
+            //QByteArray data;
+
+            data1.append("existe,");
+            data1.append(id + ",");
+            data1.append(type_prod + ",");
+            data1.append(QString::number(prix) + ",");
+            data1.append(date_entree.toString() + ",");
+            data1.append(QString::number(quantites) + "\n");
+
+            // Assuming A is an instance of your class for Arduino communication
+            A.write_to_arduino(data1);
+        } else {
+            QByteArray data;
+            data.append("existe not\n");
+            // Assuming A is an instance of your class for Arduino communication
+            A.write_to_arduino(data1);
+        }
+
+
+
+
+}
 
 
 void MainWindow::on_B_ajouter_clicked()
@@ -123,30 +172,10 @@ void MainWindow::on_pushButton_8_clicked()
     //ui->comboBox_ID->setModel(p.afficherID());
     ui->tab_PC->setModel(p.tier_lieu());
     ui->quickWidget->setSource(QUrl("qrc:/Maps.qml"));
+    update_label();
 
 }
-/*
-void MainWindow::on_comboBox_ID_currentIndexChanged(const QString &arg1)
-{
-    QMessageBox msgBox;
-    QString id_pc= ui->comboBox_ID->currentText();
 
-    QSqlQuery qry;
-
-          qry.prepare("SELECT * FROM points_de_collectes where id_pc='"+id_pc+"' ");
-          if (qry.exec())
-          {
-              while (qry.next())
-              {
-                  ui->lineEdit_idpc->setText(qry.value(0).toString());
-                  ui->lineEdit_lieu->setText(qry.value(1).toString());
-                  ui->dateEdit->setDate(qry.value(2).toDate());
-                  ui->lineEdit_quntite->setText(qry.value(3).toString());
-              }
-
-          }
-
-}*/
 
 
 void MainWindow::on_lineEdit_RE_textChanged(const QString &arg1)

@@ -1,8 +1,8 @@
 QT += core gui quick widgets
 QT += location
 QT += charts
-QT       += core gui
 
+QT       += core gui  serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 CONFIG += c++11
 
@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     activitydialog.cpp \
+    arduino.cpp \
     connect.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
 
 HEADERS += \
     activitydialog.h \
+    arduino.h \
     connect.h \
     mainwindow.h \
     pointdecollect.h

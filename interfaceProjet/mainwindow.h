@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "arduino.h"
 #include "pointdecollect.h"
 #include <QMainWindow>
 #include <QVariant>
@@ -107,7 +108,7 @@ private slots:
     void on_B_ajouter_clicked();
     void on_B_supp_clicked();
     void on_B_modifier_clicked();
-    void on_comboBox_ID_currentIndexChanged(const QString &arg1);
+    //void on_comboBox_ID_currentIndexChanged(const QString &arg1);
     void on_lineEdit_RE_textChanged(const QString &arg1);
     void on_b_trier_clicked();
     void on_lineEdit__textChanged(const QString &arg1);
@@ -130,6 +131,7 @@ private slots:
     void on_calendarWidget_activated(const QDate &date);
 
     void on_calendarWidget_clicked(const QDate &date);
+    void update_label();
 
 signals:
     void setCenter(QVariant, QVariant);
@@ -140,6 +142,9 @@ private:
     PointDeCollect p;
     QString log = "logs.txt";
     int position = 0;
+    QByteArray data; // variable contenant les données reçues
+    QByteArray data1;
+    arduino A;
 
     std::vector<attivita> activities;
     void load();

@@ -714,6 +714,19 @@ QTabBar:tab:hover
         </widget>
        </widget>
       </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>231</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
       <zorder>pushButton_4</zorder>
       <zorder>pushButton_5</zorder>
       <zorder>pushButton_6</zorder>
@@ -723,6 +736,7 @@ QTabBar:tab:hover
       <zorder>pushButton</zorder>
       <zorder>pushButton_3</zorder>
       <zorder>pushButton_2</zorder>
+      <zorder>label_3</zorder>
      </widget>
     </item>
    </layout>
