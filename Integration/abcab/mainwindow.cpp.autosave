@@ -108,7 +108,7 @@ ui->label_pic->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
 ui->lineEdit_quntite->setValidator(new QIntValidator(0, 99999, this));
 
 PointDeCollect p;
-//ui->comboBox_ID->setModel(p.afficher());
+
 ui->tableView_ID->setModel(p.afficherID());
 ui->tab_PC->setModel(p.afficher());
 
@@ -760,6 +760,11 @@ void MainWindow::on_B_supp_clicked()
     }
      else
         msgBox.setText("no suppreme ");
+    ui->lineEdit_idpc->clear();
+    ui->lineEdit_lieu->clear();
+    ui->lineEdit_quntite->clear();
+    ui->dateEdit->setDate(QDate::currentDate());
+    
     msgBox.exec();
 }
 
@@ -1014,8 +1019,9 @@ void MainWindow::on_B_gestiondecollecte_clicked()
     ui->tab_PC->setModel(p.afficher());
     ui->tableView_ID->setModel(p.afficherID());
     ui->tab_PC->setModel(p.tier_lieu());
-    ui->quickWidget->setSource(QUrl("qrc:/Maps.qml"));
+   // ui->quickWidget->setSource(QUrl("qrc:/Maps.qml"));
     ui->stackedWidget->setCurrentIndex(2);
+    ui->dateEdit->setDate(QDate::currentDate());
 
 }
 

@@ -911,7 +911,7 @@ background-color: rgb(50, 157, 156);
               <x>0</x>
               <y>0</y>
               <width>338</width>
-              <height>141</height>
+              <height>138</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1298,7 +1298,7 @@ QTabBar:tab:hover
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
