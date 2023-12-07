@@ -172,8 +172,7 @@ bool matiereRecyclee::modif()
         query.bindValue(":id", id_string);
         query.bindValue(":type", typeMr);
         query.bindValue(":prix", prix_string);
-        query.bindValue(":date_e"
-                        "ntree", date_entree);
+        query.bindValue(":date_entree", date_entree);
         query.bindValue(":quantite", qt_string);
 
         if(query.exec())

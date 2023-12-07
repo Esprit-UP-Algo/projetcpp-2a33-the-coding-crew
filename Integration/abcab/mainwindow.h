@@ -120,6 +120,18 @@ private slots:
     void on_B_gestiondemployee_clicked();
 
 
+    void on_Decon_clicked();
+
+    void on_Decon_2_clicked();
+
+    void on_Decon_3_clicked();
+
+    void on_b_gest_emp_clicked();
+
+    void on_B_gestiondeproduit_2_clicked();
+
+    void on_B_gestiondecollecte_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     matiereRecyclee mR;

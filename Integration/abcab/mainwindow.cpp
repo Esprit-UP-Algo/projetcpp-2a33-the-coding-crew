@@ -79,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent) , ui(new Ui::MainWin
     ui->setupUi(this);
     QPixmap pix("C:/Users/HP/OneDrive/Bureau/img/LOGO");
     ui->label_pic->setPixmap(pix.scaled(150,150,Qt::KeepAspectRatio));
+    ui->label_pic_4->setPixmap(pix.scaled(150,150,Qt::KeepAspectRatio));
+
     ///////////////////////////////////////////////////////////////////////////// matiere recyclee
 
 ui->stackedWidget->setCurrentIndex(0);
@@ -104,11 +106,12 @@ ProdStatisticsChartView=nullptr;
 //////////////////////////////////////////////////////////////////////////// gestion collect
 quntiteStatisticsChartView = nullptr;
 
-ui->label_pic->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
+
+ui->label_pic_2->setPixmap(pix.scaled(150, 150, Qt::KeepAspectRatio));
 ui->lineEdit_quntite->setValidator(new QIntValidator(0, 99999, this));
 
 PointDeCollect p;
-
+//ui->comboBox_ID->setModel(p.afficher());
 ui->tableView_ID->setModel(p.afficherID());
 ui->tab_PC->setModel(p.afficher());
 
@@ -130,9 +133,7 @@ emit addMarker(36.898,10.190);
 
 //////////////////////////////////////////////////////////////////////////////  gestion employee
 ui->geaffichage->setModel(Emp.afficherEmployes());
-
-//QPixmap pix("C:/Users/MSI/Desktop/LOGO/gemstonerecycle.png");
-ui->label_pic->setPixmap(pix.scaled(150,150,Qt::KeepAspectRatio));
+ui->label_pic_3->setPixmap(pix.scaled(150,150,Qt::KeepAspectRatio));
 
 setChartView_Dep(ui->horizontalFrame);
 setChartView_Poste(ui->horizontalFrame_2);
@@ -760,24 +761,18 @@ void MainWindow::on_B_supp_clicked()
     }
      else
         msgBox.setText("no suppreme ");
-    ui->lineEdit_idpc->clear();
-    ui->lineEdit_lieu->clear();
-    ui->lineEdit_quntite->clear();
-    ui->dateEdit->setDate(QDate::currentDate());
-
     msgBox.exec();
 }
 
 void MainWindow::on_B_modifier_clicked()
 {
-
+    QMessageBox msgBox;
     int id=ui->lineEdit_idpc->text().toInt();
     QDate date= ui->dateEdit->date();
     QString lieu = ui->lineEdit_lieu->text();
     int quntite=ui->lineEdit_quntite->text().toInt();
     PointDeCollect p(id,date,lieu,quntite);
     bool test=p.modifier();
-    ui->tab_PC->setModel(p.afficher());
 }
 
 void MainWindow::on_pushButton_8_clicked()
@@ -1015,13 +1010,7 @@ void MainWindow::clearquntiterStatisticsChart()
 
 void MainWindow::on_B_gestiondecollecte_clicked()
 {
-
-    ui->tab_PC->setModel(p.afficher());
-    ui->tableView_ID->setModel(p.afficherID());
-    ui->tab_PC->setModel(p.tier_lieu());
-   // ui->quickWidget->setSource(QUrl("qrc:/Maps.qml"));
     ui->stackedWidget->setCurrentIndex(2);
-    ui->dateEdit->setDate(QDate::currentDate());
 
 }
 
@@ -1268,9 +1257,45 @@ void MainWindow::on_geselectii_currentIndexChanged( QString cin_emp )
 }
 
 
-
+// deconnexion
 void MainWindow::on_B_gestiondemployee_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+
+}
+
+void MainWindow::on_Decon_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_Decon_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+
+void MainWindow::on_Decon_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+
+}
+// deconnexion
+
+void MainWindow::on_b_gest_emp_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_B_gestiondeproduit_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_B_gestiondecollecte_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 
 }

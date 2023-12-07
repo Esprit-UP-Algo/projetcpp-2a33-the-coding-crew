@@ -47,7 +47,7 @@
       </font>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <widget class="QGroupBox" name="groupBox_3">
@@ -226,6 +226,19 @@ background-color: rgb(50, 157, 156);
          <string>Annuler</string>
         </property>
        </widget>
+      </widget>
+      <widget class="QLabel" name="label_pic_4">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>0</y>
+         <width>151</width>
+         <height>131</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="page_2">
@@ -1127,7 +1140,7 @@ background-color: rgb(50, 157, 156);
          <x>10</x>
          <y>180</y>
          <width>211</width>
-         <height>321</height>
+         <height>281</height>
         </rect>
        </property>
        <property name="title">
@@ -1137,7 +1150,7 @@ background-color: rgb(50, 157, 156);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>100</y>
+          <y>60</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1153,7 +1166,7 @@ background-color: rgb(50, 157, 156);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>260</y>
+          <y>220</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1169,7 +1182,7 @@ background-color: rgb(50, 157, 156);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>220</y>
+          <y>180</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1181,27 +1194,11 @@ background-color: rgb(50, 157, 156);
          <string>Gestion de vehicule</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_7">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>171</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(207, 244, 210);</string>
-        </property>
-        <property name="text">
-         <string>Accueil</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="pushButton_4">
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>180</y>
+          <y>140</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1217,7 +1214,7 @@ background-color: rgb(50, 157, 156);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>140</y>
+          <y>100</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1233,7 +1230,7 @@ background-color: rgb(50, 157, 156);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>60</y>
+          <y>20</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1246,6 +1243,22 @@ background-color: rgb(50, 157, 156);
          <string>Gestion d'employés</string>
         </property>
        </widget>
+      </widget>
+      <widget class="QPushButton" name="Decon">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>500</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(207, 244, 210);</string>
+       </property>
+       <property name="text">
+        <string>Deconnexion</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="page_3">
@@ -1795,7 +1808,7 @@ border-radius: 10px;</string>
          <x>10</x>
          <y>180</y>
          <width>211</width>
-         <height>321</height>
+         <height>281</height>
         </rect>
        </property>
        <property name="title">
@@ -1805,7 +1818,7 @@ border-radius: 10px;</string>
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>100</y>
+          <y>60</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1821,22 +1834,6 @@ border-radius: 10px;</string>
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>260</y>
-          <width>171</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(207, 244, 210);</string>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_10">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
           <y>220</y>
           <width>171</width>
           <height>41</height>
@@ -1846,26 +1843,10 @@ border-radius: 10px;</string>
          <string notr="true">background-color: rgb(207, 244, 210);</string>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string>Gestiond de Client</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_11">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>171</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(207, 244, 210);</string>
-        </property>
-        <property name="text">
-         <string>Accueil</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_12">
+       <widget class="QPushButton" name="pushButton_10">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1878,10 +1859,10 @@ border-radius: 10px;</string>
          <string notr="true">background-color: rgb(207, 244, 210);</string>
         </property>
         <property name="text">
-         <string/>
+         <string>Gestion de vehicule</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="B_gestiondecollecte_2">
+       <widget class="QPushButton" name="pushButton_12">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1894,14 +1875,30 @@ border-radius: 10px;</string>
          <string notr="true">background-color: rgb(207, 244, 210);</string>
         </property>
         <property name="text">
-         <string>Gestion de collectes</string>
+         <string>Gestion de conteneur </string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_13">
+       <widget class="QPushButton" name="B_gestiondecollecte_2">
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>60</y>
+          <y>100</y>
+          <width>171</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(207, 244, 210);</string>
+        </property>
+        <property name="text">
+         <string>Gestion de collectes</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="b_gest_emp">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
           <width>171</width>
           <height>41</height>
          </rect>
@@ -1915,7 +1912,23 @@ border-radius: 10px;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QLabel" name="label_pic_7">
+      <widget class="QPushButton" name="Decon_3">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>500</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(207, 244, 210);</string>
+       </property>
+       <property name="text">
+        <string>Deconnexion</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_pic_2">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -1926,9 +1939,6 @@ border-radius: 10px;</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../../LOGO/gemstonerecycle.png</pixmap>
        </property>
       </widget>
      </widget>
@@ -1948,22 +1958,6 @@ border-radius: 10px;</string>
        <property name="title">
         <string/>
        </property>
-       <widget class="QLabel" name="label_pic_6">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>20</y>
-          <width>151</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>../../LOGO/gemstonerecycle.png</pixmap>
-        </property>
-       </widget>
        <widget class="QTabWidget" name="tabWidget_9">
         <property name="geometry">
          <rect>
@@ -2907,7 +2901,7 @@ background-color: rgb(50, 157, 156);
           <x>20</x>
           <y>170</y>
           <width>211</width>
-          <height>321</height>
+          <height>281</height>
          </rect>
         </property>
         <property name="title">
@@ -2917,7 +2911,7 @@ background-color: rgb(50, 157, 156);
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>100</y>
+           <y>60</y>
            <width>171</width>
            <height>41</height>
           </rect>
@@ -2933,22 +2927,6 @@ background-color: rgb(50, 157, 156);
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>260</y>
-           <width>171</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(207, 244, 210);</string>
-         </property>
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_15">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
            <y>220</y>
            <width>171</width>
            <height>41</height>
@@ -2958,26 +2936,10 @@ background-color: rgb(50, 157, 156);
           <string notr="true">background-color: rgb(207, 244, 210);</string>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Gestiond de Client</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_16">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>20</y>
-           <width>171</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(207, 244, 210);</string>
-         </property>
-         <property name="text">
-          <string>Accueil</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_17">
+        <widget class="QPushButton" name="pushButton_15">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2990,14 +2952,30 @@ background-color: rgb(50, 157, 156);
           <string notr="true">background-color: rgb(207, 244, 210);</string>
          </property>
          <property name="text">
-          <string/>
+          <string>Gestion de vehicule</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_17">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>140</y>
+           <width>171</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(207, 244, 210);</string>
+         </property>
+         <property name="text">
+          <string>Gestion de conteneur </string>
          </property>
         </widget>
         <widget class="QPushButton" name="B_gestiondecollecte_3">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>140</y>
+           <y>100</y>
            <width>171</width>
            <height>41</height>
           </rect>
@@ -3013,7 +2991,7 @@ background-color: rgb(50, 157, 156);
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>60</y>
+           <y>20</y>
            <width>171</width>
            <height>41</height>
           </rect>
@@ -3026,6 +3004,35 @@ background-color: rgb(50, 157, 156);
           <string>Gestion d'employés</string>
          </property>
         </widget>
+       </widget>
+       <widget class="QPushButton" name="Decon_2">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>490</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(207, 244, 210);</string>
+        </property>
+        <property name="text">
+         <string>Deconnexion</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_pic_3">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>151</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
        </widget>
       </widget>
      </widget>
