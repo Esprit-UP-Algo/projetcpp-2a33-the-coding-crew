@@ -1311,7 +1311,7 @@ QTabBar:tab:hover
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -1824,7 +1824,8 @@ border-radius: 10px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(50, 157, 156);</string>
+         <string notr="true">background-color: rgb(207, 244, 210);
+</string>
         </property>
         <property name="text">
          <string>Gestion de Produits</string>
@@ -1888,7 +1889,7 @@ border-radius: 10px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(207, 244, 210);</string>
+         <string notr="true">background-color: rgb(50, 157, 156);</string>
         </property>
         <property name="text">
          <string>Gestion de collectes</string>
@@ -2917,7 +2918,7 @@ background-color: rgb(50, 157, 156);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(50, 157, 156);</string>
+          <string notr="true">background-color: rgb(207, 244, 210);</string>
          </property>
          <property name="text">
           <string>Gestion de Produits</string>
@@ -2997,7 +2998,7 @@ background-color: rgb(50, 157, 156);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(207, 244, 210);
+          <string notr="true">background-color: rgb(50, 157, 156);
 </string>
          </property>
          <property name="text">

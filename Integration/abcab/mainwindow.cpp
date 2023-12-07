@@ -757,6 +757,12 @@ void MainWindow::on_B_supp_clicked()
     {
         ui->tableView_ID->setModel(p1.afficherID());
         ui->tab_PC->setModel(p1.afficher());
+
+        ui->lineEdit_idpc->clear();
+        ui->lineEdit_lieu->clear();
+        ui->lineEdit_quntite->clear();
+
+        ui->dateEdit->setDate(QDate::currentDate());
         msgBox.setText("suppreme avec succe");
     }
      else
@@ -773,6 +779,8 @@ void MainWindow::on_B_modifier_clicked()
     int quntite=ui->lineEdit_quntite->text().toInt();
     PointDeCollect p(id,date,lieu,quntite);
     bool test=p.modifier();
+    ui->tab_PC->setModel(p.afficher());
+
 }
 
 void MainWindow::on_pushButton_8_clicked()
