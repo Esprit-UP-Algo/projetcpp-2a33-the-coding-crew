@@ -2,6 +2,8 @@ QT += core gui quick widgets
 QT += location
 QT += charts
 QT += quickcontrols2 printsupport
+QT +=serialport
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 
 CONFIG += c++11
@@ -23,8 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
     chart.cpp \
     connect.cpp \
+    conteneur.cpp \
     csv.cpp \
     employe.cpp \
     main.cpp \
@@ -32,21 +36,32 @@ SOURCES += \
     matiererecyclee.cpp \
     pdf.cpp \
     pointdecollect.cpp \
-    qrcodegen.cpp
+    qrcodegen.cpp \
+    remplir.cpp \
+    sms.cpp \
+    smtp.cpp \
+    vehicules.cpp
 
 HEADERS += \
+    arduino.h \
     chart.h \
     connect.h \
+    conteneur.h \
     csv.h \
     employe.h \
     mainwindow.h \
     matiererecyclee.h \ \
     pdf.h \
     pointdecollect.h \
-    qrcodegen.h
+    qrcodegen.h \
+    remplir.h \
+    sms.h \
+    smtp.h \
+    vehicules.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    remplir.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -58,4 +73,5 @@ RESOURCES += \
     qlm.qrc
 
 DISTFILES += \ \
+    logo.png \
     map.qml

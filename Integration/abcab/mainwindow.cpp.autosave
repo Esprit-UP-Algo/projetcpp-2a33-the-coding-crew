@@ -1936,6 +1936,7 @@ void MainWindow::on_remplir_clicked()
     r->show();
 }
 // gestion vehicules
+
 void MainWindow::on_Decon_5_clicked()
 {
    ui->stackedWidget->setCurrentIndex(0);

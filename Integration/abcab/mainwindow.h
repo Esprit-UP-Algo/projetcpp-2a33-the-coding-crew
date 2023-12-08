@@ -10,13 +10,15 @@
 #include "ui_mainwindow.h"
 #include "pointdecollect.h"
 #include "employe.h"
+#include "arduino.h"
 
 
 
 #include <QVariant>
 #include <QtCharts>
 #include <QtCharts/QChartView>
-
+#include "conteneur.h"
+#include "vehicules.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -130,13 +132,72 @@ private slots:
 
     void on_B_gestiondeproduit_2_clicked();
 
-    void on_B_gestiondecollecte_3_clicked();
 
+   //void on_B_gestiondecollecte_3_clicked();
+    void on_pushButton_4_clicked();
+    void on_Decon_4_clicked();
+    //integration conteneur
+    void on_boutton_supprimer_clicked();
+
+    void on_boutton_ajouter_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_modifier_clicked();
+
+
+
+    void RechercheID();
+bool RechercheID2() ;
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_statt_btn_clicked();
+    //int countType();
+    //int countType1();
+    //int countType2();
+    int countType(const QString& type);
+
+
+
+    void on_EMAIL_clicked();
+    bool RechercheQuantiteUnder100();
+
+    void on_remplir_clicked();
+
+    void on_Decon_5_clicked();
+
+    void on_pushButton_5_clicked();
+
+    //gestion vehicules
+    void on_pushButton_17_clicked();
+
+    void on_pushButton_11_clicked();
+
+    void on_pushButton_20_clicked();
+
+    void on_texte_recherche_textChanged(const QString &var);
+
+    void on_TRI_clicked();
+
+    void on_PDF_clicked();
+
+    void on_STAT_clicked();
+    int count1();
+    int count2();
+    int count3();
+    int count4();
+    int count5();
+    int count6();
+   void on_notification_system();
 private:
     Ui::MainWindow *ui;
     matiereRecyclee mR;
     Employe Emp;
+    //integration conteneur
 
+    Conteneur C ;
 
     CQR_Encode qrEncode;
     bool successfulEncoding;
@@ -158,7 +219,13 @@ protected:
     bool eventFilter( QObject * object, QEvent * event );
 
     /////////////////////////////////////// point collect
-    PointDeCollect p;
+    ///////////////////
+vehicules V;
+Arduino A;
+QByteArray data;
+void on_pushButton_12_clicked();
+void gestion_conteneur_2();
+PointDeCollect p;
 
 signals:
     void setCenter(QVariant, QVariant);
